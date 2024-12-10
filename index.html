@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+        .question {
+            margin: 20px 0;
+        }
+        .options button {
+            margin: 5px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .score {
+            margin-top: 20px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Quiz</h1>
+    <div id="quiz-container">
+        <div id="question-container" class="question"></div>
+        <div id="options-container" class="options"></div>
+    </div>
+    <h1 id="score-container" class="score" style="display: none;"></h1>
+
+
+
+
+
+    <script>
+        var questions = [
+            {
+                question: "What is the capital of France?",
+                options: ["Berlin", "Madrid", "Paris", "Lisbon"],
+                answer: 2
+            },
+            {
+                question: "What is 2 + 2?",
+                options: ["3", "4", "5", "6"],
+                answer: 1
+            },
+            {
+                question: "What is the largest ocean on Earth?",
+                options: ["Atlantic", "Indian", "Arctic", "Pacific"],
+                answer: 3
+            }
+        ];
+
+        var currentQuestionIndex = 0;
+        var score = 0;
+
+
+
+
+        function loadQuestion() {
+            var questionContainer = document.getElementById("question-container");
+            var optionsContainer = document.getElementById("options-container");
+
+            if (currentQuestionIndex < questions.length) {
+                questionContainer.textContent = questions[currentQuestionIndex].question;
+                optionsContainer.innerHTML = "";
+
+                questions[currentQuestionIndex].options.
+                
+                forEach(
+                    function(option, index) {
+                        var button = document.createElement("button");
+                        button.textContent = option ;
+                    
+                    button.onclick = function() {
+                        checkAnswer(index);
+                    };
+                    optionsContainer.appendChild(button);
+                });
+
+
+
+
+
+
+            } else {
+                showScore();
+            }
+        }
+
+        function checkAnswer(selectedIndex) {
+            if (selectedIndex === questions[currentQuestionIndex].answer) {
+                score++;
+            }
+            currentQuestionIndex++;
+            loadQuestion();
+        }
+
+        function showScore() {
+            document.getElementById("quiz-container").style.display = "none";
+            var scoreContainer = document.getElementById("score-container");
+            scoreContainer.style.display = "block";
+            scoreContainer.textContent = "Your score is: " + score + "/" + questions.length;
+        }
+
+        loadQuestion();
+    </script>
+</body>
+</html>
